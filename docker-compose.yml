@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  # 1. Servis: Veritabanı (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: kyk_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: kyk_yemek_db
+      MYSQL_ROOT_PASSWORD: 123
+    ports:
+      - "3307:3306"
+
+  # 2. Servis: PHP ve Web Sunucusu (Apache)
+  php:
+    image: php:8.2-apache
+    container_name: kyk_php
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+
+    command: >
+      sh -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
+
+  # 3. Servis: Veritabanını görsel yönetmek için (phpMyAdmin)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: kyk_pma
+    links:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
