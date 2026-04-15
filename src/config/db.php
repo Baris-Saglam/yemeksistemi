@@ -4,7 +4,7 @@ $host     = 'mysql.railway.internal'; // Bu hep aynıdır
 $port     = '3306'; 
 $db_name  = 'railway'; // Variables kısmında MYSQLDATABASE neyse o
 $username = 'root';    // Variables kısmında MYSQLUSER neyse o
-$password = 'RDTRTiDskejQJKkKxnqsmvfKAjVnmHoy'; // SENİN ŞİFREN (MYSQLPASSWORD)
+$password = 'VNJNOoGwiBeYnLaCjUatPRSGvOOFOnPH'; // SENİN ŞİFREN (MYSQLPASSWORD)
 
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=utf8mb4";
