@@ -3,7 +3,7 @@ $host     = 'mysql.railway.internal';
 $port     = '3306';
 $db_name  = 'railway';
 $username = 'root';
-$password = 'RDTRTiDskejQJKkKxnqsmvfKAjVnmHoy'; // Bu şifrenin güncel olduğundan emin ol
+$password = 'VNJNOoGwiBeYnLaCjUatPRSGvOOFOnPH'; // Bu şifrenin güncel olduğundan emin ol
 
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=utf8mb4";
