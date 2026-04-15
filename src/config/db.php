@@ -1,24 +1,27 @@
 <?php
-// Railway Değişkenleri (Bunları elinle yazabilirsin veya getenv kullanabilirsin)
-$host     = 'mysql.railway.internal'; 
-$port     = '3306'; // Railway MySQL varsayılan portu
-$db_name  = 'railway';
-$username = 'root';
-$password = 'RDTRTiDskejQJKkKxnqsmvfKAjVnmHoy';
+// Railway'deki MySQL -> Variables kısmından bakarak doldur:
+$host     = 'mysql.railway.internal'; // Bu hep aynıdır
+$port     = '3306'; 
+$db_name  = 'railway'; // Variables kısmında MYSQLDATABASE neyse o
+$username = 'root';    // Variables kısmında MYSQLUSER neyse o
+$password = 'RDTRTiDskejQJKkKxnqsmvfKAjVnmHoy'; // SENİN ŞİFREN (MYSQLPASSWORD)
 
 try {
-    // ÖNEMLİ: Timeout süresini kısa tutalım ki uygulama kilitlenmesin
+    $dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=utf8mb4";
     $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_TIMEOUT => 5, // 5 saniye içinde bağlanamazsan hata ver, bekleme!
+        PDO::ATTR_TIMEOUT => 3, // 3 saniyede bağlanamazsa pes et, hata ver
     ];
-
-    // Bağlantı dizesine portu MUTLAKA ekle
-    $dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=utf8mb4";
+    
     $db = new PDO($dsn, $username, $password, $options);
+    
+    // Arkadaşın diğer sayfalarda $baglan değişkenini kullanmış olabilir:
+    $baglan = $db; 
+    $conn = $db;
 
-    // echo "Bağlantı başarılı!"; // Test için açabilirsin
 } catch (PDOException $e) {
-    // Hata olursa uygulamayı kilitleme, hatayı ekrana bas ve dur
-    die("Veritabanı hatası: " . $e->getMessage());
+    // Ekranda hatayı görelim ki neden bağlanmıyor anlayalım
+    echo "<h1>Bağlantı Hatası!</h1>";
+    echo "Detay: " . $e->getMessage();
+    exit;
 }
