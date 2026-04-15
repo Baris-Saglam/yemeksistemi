@@ -1,27 +1,17 @@
 <?php
-// Railway'deki MySQL -> Variables kısmından bakarak doldur:
-$host     = 'mysql.railway.internal'; // Bu hep aynıdır
-$port     = '3306'; 
-$db_name  = 'railway'; // Variables kısmında MYSQLDATABASE neyse o
-$username = 'root';    // Variables kısmında MYSQLUSER neyse o
-$password = 'VNJNOoGwiBeYnLaCjUatPRSGvOOFOnPH'; // SENİN ŞİFREN (MYSQLPASSWORD)
+$host     = 'mysql.railway.internal';
+$port     = '3306';
+$db_name  = 'railway';
+$username = 'root';
+$password = 'RDTRTiDskejQJKkKxnqsmvfKAjVnmHoy'; // Bu şifrenin güncel olduğundan emin ol
 
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=utf8mb4";
-    $options = [
+    $db = new PDO($dsn, $username, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_TIMEOUT => 3, // 3 saniyede bağlanamazsa pes et, hata ver
-    ];
-    
-    $db = new PDO($dsn, $username, $password, $options);
-    
-    // Arkadaşın diğer sayfalarda $baglan değişkenini kullanmış olabilir:
-    $baglan = $db; 
-    $conn = $db;
-
+        PDO::ATTR_TIMEOUT => 5
+    ]);
 } catch (PDOException $e) {
-    // Ekranda hatayı görelim ki neden bağlanmıyor anlayalım
-    echo "<h1>Bağlantı Hatası!</h1>";
-    echo "Detay: " . $e->getMessage();
-    exit;
+    // Hata varsa ekrana yazdıralım ki gri ekranda kalmasın
+    die("Bağlantı başarısız: " . $e->getMessage());
 }
